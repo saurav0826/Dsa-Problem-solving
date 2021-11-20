@@ -1,52 +1,32 @@
-// { Driver Code Starts
-//Initial Template for Java
+package sorting;
 
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
 
-public class Main {
+public class SlectionSORT {
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int tc = Integer.parseInt(br.readLine().trim());
-        while (tc-- > 0) {
-            String[] inputLine;
-            inputLine = br.readLine().trim().split(" ");
-            int n = Integer.parseInt(inputLine[0]);
-            int m = Integer.parseInt(inputLine[1]);
-            int[][] arr = new int[n][m];
-            inputLine = br.readLine().trim().split(" ");
-        
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    arr[i][j] = Integer.parseInt(inputLine[i * m + j]);
-                }
-            }
-            int ans = new Solution().rowWithMax1s(arr, n, m);
-            System.out.println(ans);
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+        int[] a = new int [n];
+       
+        for(int i = 0 ; i < n ;i ++) {
+        	a[i]= sc.nextInt();
         }
-    }
-}
-// } Driver Code Ends
-
-
-//User function Template for Java
-
-class Solution {
-    int rowWithMax1s(int arr[][], int n, int m) {
-        // code here
-        int k =0;
-        while(k<m){
-        for(int i = 0 ; i < n;i++){
-            if(arr[i][k]==1){
-                return i;
+        for(int i = 0 ; i < n-1 ; i++) {
+        	int temp =i;
+        	for(int j = i ; j <n-1 ; j ++) {
+        		if(a[j+1]<a[j])
+        			temp=j+1;
+        	}
+        	int k = a[i] ;
+        	a[i]=a[temp];
+        	a[temp]=k;
+        	
         }
-            
+        for(int i = 0 ; i < n ;i ++) {
+         System.out.print(a[i]+" ");
         }
-        
-        k++;
-        }
-         return -1;
-    }
-   
+	}
+
 }
