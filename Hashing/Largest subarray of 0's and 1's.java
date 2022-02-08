@@ -1,48 +1,62 @@
 // { Driver Code Starts
-// Initial Template for Java
-
-import java.io.*;
+import java.util.Scanner;
 import java.util.*;
+import java.lang.*;
+import java.util.HashMap;
 
-class GFG {
-    public static void main(String args[]) throws IOException {
-        BufferedReader read =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
-        while (t-- > 0) {
-            String S[] = read.readLine().split(" ");
-            int M = Integer.parseInt(S[0]);
-            int N = Integer.parseInt(S[1]);
-            Solution ob = new Solution();
-            ArrayList<Integer> ans = ob.primeRange(M, N);
-            for (int i : ans) System.out.print(i + " ");
-            System.out.println();
+class Largest_Subarray
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while (T > 0)
+        {
+            int N = sc.nextInt();
+            int a[] = new int[N];
+            for (int i = 0; i < N; i++) 
+                a[i] = sc.nextInt();
+            
+
+            Solution g = new Solution();
+            int n = g.maxLen(a, a.length);
+
+            System.out.println(n);
+
+            T--;
         }
     }
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
-// User function Template for Java
+
 
 class Solution {
-   boolean isprime(int k ){
-       if(k == 0 || k == 1){
-            return false;
-        }
-        for(int i = 2;i<=(int)Math.sqrt(k);i++){
-            if(k%i==0)
-            return false;
-        }
-        return true;
-    }
-    ArrayList<Integer> primeRange(int M, int N) {
-        // code here
-        ArrayList<Integer> al = new ArrayList<>();
-        for(int i = M ; i <=N ; i++){
-            if(isprime(i)){
-                al.add(i);
-            }
-        }
-        return al ;
+
+    // arr[] : the input array containing 0s and 1s
+    // N : size of the input array
+    
+    // return the maximum length of the subarray
+    // with equal 0s and 1s
+    int maxLen(int[] arr, int n)
+    {
+        // Your code here
+      HashMap<Integer,Integer> m = new HashMap<>();
+      for(int i  = 0 ; i < n ; i++){
+          if(arr[i]==0)
+          arr[i]=-1;
+      }
+      int sum=0;
+      int res =0;
+      m.put(0,-1);
+      for(int i = 0 ; i < n ; i++){
+          sum+=arr[i];
+          if(m.containsKey(sum))
+          res=Math.max(res,i-(m.get(sum)));
+          else
+          m.put(sum,i);
+      }
+      return res;
     }
 }
