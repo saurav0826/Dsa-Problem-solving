@@ -1,48 +1,60 @@
 // { Driver Code Starts
-// Initial Template for Java
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
+import java.util.HashMap;
 
-class GFG {
-    public static void main(String args[]) throws IOException {
-        BufferedReader read =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
-        while (t-- > 0) {
-            String S[] = read.readLine().split(" ");
-            int M = Integer.parseInt(S[0]);
-            int N = Integer.parseInt(S[1]);
-            Solution ob = new Solution();
-            ArrayList<Integer> ans = ob.primeRange(M, N);
-            for (int i : ans) System.out.print(i + " ");
+class GFG
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t > 0)
+        {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int a[] = new int[n];
+            for (int i = 0; i < n; i++) 
+                a[i] = sc.nextInt();
+            Solution g = new Solution();
+            
+            ArrayList<Integer> ans = g.countDistinct(a, n, k);
+
+            for (Integer val: ans) 
+                System.out.print(val+" "); 
             System.out.println();
+            t--;
         }
     }
 }// } Driver Code Ends
 
 
-// User function Template for Java
+class Solution
+{
+    ArrayList<Integer> countDistinct(int arr[], int n, int k)
+    {
+        // code here 
+        ArrayList<Integer> al = new ArrayList<Integer>();
+       HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int i=0;i<n;i++ ){
+            if(i<k){
+                  map.put(arr[i], map.getOrDefault(arr[i], 0)+1);
+                if(i==k-1)
+                            al.add(map.size());
 
-class Solution {
-   boolean isprime(int k ){
-       if(k == 0 || k == 1){
-            return false;
-        }
-        for(int i = 2;i<=(int)Math.sqrt(k);i++){
-            if(k%i==0)
-            return false;
-        }
-        return true;
-    }
-    ArrayList<Integer> primeRange(int M, int N) {
-        // code here
-        ArrayList<Integer> al = new ArrayList<>();
-        for(int i = M ; i <=N ; i++){
-            if(isprime(i)){
-                al.add(i);
+            }
+            else{
+                if(map.get(arr[i-k])==1)
+                map.remove(arr[i-k]);
+                else{
+                map.put(arr[i-k],map.get(arr[i-k])-1);
+                }
+                map.put(arr[i], map.getOrDefault(arr[i], 0) +1);
+                
+                al.add(map.size());
             }
         }
-        return al ;
+        return al;
     }
 }
+
