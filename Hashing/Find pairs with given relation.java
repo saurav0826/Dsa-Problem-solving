@@ -1,46 +1,70 @@
 // { Driver Code Starts
-// Initial Template for Java
+//Initial Template for Java
+
+
+//Initial Template for Java
+
+
 
 import java.io.*;
 import java.util.*;
 
-class GFG {
-    // Driver code
-    public static void main(String[] args) throws Exception {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine().trim());
-        while (t-- > 0) {
-            int n = Integer.parseInt(br.readLine().trim());
-            String[] str = br.readLine().split(" ");
 
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) {
-                a[i] = Integer.parseInt(str[i]);
-            }
-
-            int[] ans = new Solve().findTwoElement(a, n);
-            System.out.println(ans[0] + " " + ans[1]);
-        }
-    }
-}// } Driver Code Ends
+ // } Driver Code Ends
+//User function Template for Java
 
 
-// User function Template for Java
-class Solve {
-    int[] findTwoElement(int arr[], int n) {
-        int[] ans = new int[2];
-        int i;
-        for (i = 0; i < n; i++) {
-            int abs_val = Math.abs(arr[i]);
-            if (arr[abs_val - 1] > 0)
-                arr[abs_val - 1] = -arr[abs_val - 1];
-            else
-                ans[0] = abs_val;
-        }
-        for (i = 0; i < n; i++) {
-            if (arr[i] > 0) ans[1] = i + 1;
-        }
-        return ans;
+class Solution
+{
+    long findPairs(long a[],int n)
+    {
+HashSet<Long> s = new HashSet<>();
+
+for(int i = 0 ;i < n ; i++){
+    for(int j=i+1;j<n;j++){
+        long k =a[i]*a[j];
+        if(s.contains(k))
+        return 1;
+         s.add(k);
+        
     }
 }
+        return -1;
+    }
+}
+
+
+// { Driver Code Starts.
+
+// Driver class
+class Array {
+
+    // Driver code
+    public static void main (String[] args) throws IOException{
+        // Taking input using buffered reader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int testcases = Integer.parseInt(br.readLine());
+        // looping through all testcases
+        while(testcases-- > 0){
+            int n=Integer.parseInt(br.readLine());
+            String line1 = br.readLine();
+            String[] a1 = line1.trim().split("\\s+");
+            long a[]=new long[n];
+            for(int  i=0;i<n;i++)
+            {
+                a[i]=Long.parseLong(a1[i]);
+            }
+            Solution ob=new Solution();
+            //ArrayList<Long> ans=ob.smallestDifferenceTriplet(a,b,c,n);
+            long ans=ob.findPairs(a,n);
+            System.out.println(ans);
+        }
+    }
+}
+
+
+//User function Template for Java
+
+
+  // } Driver Code Ends
