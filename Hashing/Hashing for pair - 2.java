@@ -1,46 +1,62 @@
 // { Driver Code Starts
 // Initial Template for Java
 
-import java.io.*;
+// Initial Template for Java
+
 import java.util.*;
+import java.io.*;
 
-class GFG {
-    // Driver code
-    public static void main(String[] args) throws Exception {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine().trim());
-        while (t-- > 0) {
-            int n = Integer.parseInt(br.readLine().trim());
-            String[] str = br.readLine().split(" ");
+class Gfg {
+    public static void main(String[] args) {
 
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) {
-                a[i] = Integer.parseInt(str[i]);
-            }
+        // Taking input using class Scanner
+        Scanner sc = new Scanner(System.in);
 
-            int[] ans = new Solve().findTwoElement(a, n);
-            System.out.println(ans[0] + " " + ans[1]);
+        // Taking total count of testcases
+        int testcases = sc.nextInt();
+
+        while (testcases-- > 0) {
+            // taking size of array
+            int N = sc.nextInt();
+            int arr[] = new int[N]; // array declaration
+
+            for (int i = 0; i < N; i++) arr[i] = sc.nextInt(); // Input the
+                                                               // array
+
+            int sum = 0;
+
+            // taking value of sum
+            sum = sc.nextInt();
+
+            // Creating an object of class Geeks
+            Geeks obj = new Geeks();
+
+            // Calling sumExists method of class Geeks
+            // and printing the result
+            System.out.println(obj.sumExists(arr, N, sum));
         }
     }
-}// } Driver Code Ends
+}
+
+// Position this line where user code will be pasted.
+// } Driver Code Ends
 
 
 // User function Template for Java
-class Solve {
-    int[] findTwoElement(int arr[], int n) {
-        int[] ans = new int[2];
-        int i;
-        for (i = 0; i < n; i++) {
-            int abs_val = Math.abs(arr[i]);
-            if (arr[abs_val - 1] > 0)
-                arr[abs_val - 1] = -arr[abs_val - 1];
-            else
-                ans[0] = abs_val;
+
+class Geeks {
+    // Complete this function
+    // Function to check if two numbers in array have sum equal to the given
+    // sum.
+    public static int sumExists(int arr[], int N, int sum) {
+
+        // Your code here
+        HashSet<Integer> s = new HashSet<>();
+        for(int i = 0 ;i <N;i++){
+            if(s.contains(sum-arr[i]))
+            return 1;
+            s.add(arr[i]);
         }
-        for (i = 0; i < n; i++) {
-            if (arr[i] > 0) ans[1] = i + 1;
-        }
-        return ans;
+        return 0;
     }
 }
