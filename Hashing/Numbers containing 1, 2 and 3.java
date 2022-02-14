@@ -1,46 +1,81 @@
 // { Driver Code Starts
-// Initial Template for Java
+//Initial Template for Java
+
+/*package whatever //do not write package name here */
 
 import java.io.*;
 import java.util.*;
-
+import java.awt.Point; 
+import java.util.Arrays; 
+import java.util.Vector; 
 class GFG {
-    // Driver code
-    public static void main(String[] args) throws Exception {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine().trim());
-        while (t-- > 0) {
-            int n = Integer.parseInt(br.readLine().trim());
-            String[] str = br.readLine().split(" ");
+	public static void main (String[] args) {
+		Scanner sc=new Scanner(System.in);
+		
+		int t=sc.nextInt();
+		findAll();
+		while(t-->0)
+		{
+		    int n=sc.nextInt();
+		    int arr[]=new int[n];
+		    for(int i=0;i<n;i++)
+		    arr[i]=sc.nextInt();
+		    
+		    Arrays.sort(arr);
+		    boolean flag=false;
+		    for(int x:arr)
+		    {
+		        if(mp.containsKey(x))
+		        {System.out.print(x+" ");flag=true;}
+		    }
+		    
+		    if(flag==false)
+		    System.out.print(-1);
+		    System.out.println();
+		}
+		
+		
+	}
+	
+	
+    static HashMap<Integer,Integer>mp=new HashMap<>();
 
-            int[] a = new int[n];
-            for (int i = 0; i < n; i++) {
-                a[i] = Integer.parseInt(str[i]);
-            }
 
-            int[] ans = new Solve().findTwoElement(a, n);
-            System.out.println(ans[0] + " " + ans[1]);
+
+ // } Driver Code Ends
+//User function Template for Java
+
+static boolean check(int n)
+{
+    while(n>0)
+    {
+        int key = n%10;
+        if(key==0 || key>=4)
+        {
+            return false;
         }
+        n =n/10;
     }
-}// } Driver Code Ends
-
-
-// User function Template for Java
-class Solve {
-    int[] findTwoElement(int arr[], int n) {
-        int[] ans = new int[2];
-        int i;
-        for (i = 0; i < n; i++) {
-            int abs_val = Math.abs(arr[i]);
-            if (arr[abs_val - 1] > 0)
-                arr[abs_val - 1] = -arr[abs_val - 1];
-            else
-                ans[0] = abs_val;
+    return true;
+}
+public static void findAll()
+{
+     for(int i =0;i<1000001;i++)
+    {
+        if(check(i)==true)
+        {
+        mp.put(i,1);
         }
-        for (i = 0; i < n; i++) {
-            if (arr[i] > 0) ans[1] = i + 1;
-        }
-        return ans;
     }
 }
+  
+  
+      
+
+
+
+
+// { Driver Code Starts.
+
+
+}  // } Driver Code Ends
