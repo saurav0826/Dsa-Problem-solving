@@ -1,59 +1,49 @@
 // { Driver Code Starts
-//Initial Template for Java
-
-import java.io.*;
 import java.util.*;
-import java.util.HashMap; 
-import java.util.HashSet; 
+import java.lang.*;
+import java.io.*;
 
-class GFG{
-	public static void main(String args[]) throws IOException { 
+class GFG {
+    
+	public static void main (String[] args) {
 		Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        while(t > 0){
-       		int rows=sc.nextInt();
-       		int columns=sc.nextInt();
-			
-			int matrix[][]=new int[rows][columns];
-          
-        	for(int i=0; i<rows;i++){            
-            	for(int j=0; j<columns;j++){
-                	matrix[i][j]=sc.nextInt();
-            	}
-         	}
-
-			Solution x = new Solution();
-			if (x.ValidCorner(matrix)) 
-				System.out.println("Yes"); 
-			else
-				System.out.println("No"); 
-			t--;
+		int t;
+		t = sc.nextInt();
+		String s12 = sc.nextLine();
+		for(int i=0; i<t; i++){
+		    String s1 = sc.nextLine();
+		    String s2 = sc.nextLine();
+		    
+		    Solution obj = new Solution();
+		    
+		    boolean flag = obj.isRotated(s1, s2);
+		    
+		    if(flag == true) System.out.println("1");
+		    else System.out.println("0");
+		    
 		}
-	} 
-}
-	
-
-
-// } Driver Code Ends
-
-
-//User function Template for Java
-
-public class Solution { 
-	static boolean ValidCorner(int m[][]) 
-	{ 
-	    // Your code goes here
-	    for(int i = 0 ; i< m.length ;i ++){
-	        for(int j = 0; j<m[0].length;j++){
-	            for(int k = i+1;k<m.length;k++){
-	                for(int l=j+1;l<m[0].length;l++){
-	                    if(m[i][j]==1&&m[i][l]==1&&m[k][j]==1&&m[k][l]==1)
-	                    return true;
-	                }
-	            }
-	        }
-	    }
-	    return false;
 	}
+}// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to check if a string can be obtained by rotating
+    //another string by exactly 2 places.
+    public static boolean isRotated(String str1, String str2)
+    {
+        // Your code here
+        if(str1.length()!=str2.length())
+        return false;
+        int n =str1.length();
+        for(int i = 0 ; i<n ;i ++){
+    
+            
+            if((str2.charAt(i))!=(str1.charAt((i+2)%n))&&(str1.charAt(i))!=(str2.charAt((i+2)%n)))
+            return false;
+        
+        }
+        return true;
+    }
+    
 }
