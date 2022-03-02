@@ -1,59 +1,36 @@
 // { Driver Code Starts
 //Initial Template for Java
 
-import java.io.*;
+
 import java.util.*;
-import java.util.HashMap; 
-import java.util.HashSet; 
+import java.math.*;
 
-class GFG{
-	public static void main(String args[]) throws IOException { 
-		Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        while(t > 0){
-       		int rows=sc.nextInt();
-       		int columns=sc.nextInt();
-			
-			int matrix[][]=new int[rows][columns];
-          
-        	for(int i=0; i<rows;i++){            
-            	for(int j=0; j<columns;j++){
-                	matrix[i][j]=sc.nextInt();
-            	}
-         	}
-
-			Solution x = new Solution();
-			if (x.ValidCorner(matrix)) 
-				System.out.println("Yes"); 
-			else
-				System.out.println("No"); 
-			t--;
-		}
-	} 
-}
-	
-
-
-// } Driver Code Ends
+class Multiply{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String a=sc.next();
+            String b=sc.next();
+            Solution g=new Solution();
+            System.out.println(g.multiplyStrings(a,b));
+        }
+    }
+}// } Driver Code Ends
 
 
 //User function Template for Java
 
-public class Solution { 
-	static boolean ValidCorner(int m[][]) 
-	{ 
-	    // Your code goes here
-	    for(int i = 0 ; i< m.length ;i ++){
-	        for(int j = 0; j<m[0].length;j++){
-	            for(int k = i+1;k<m.length;k++){
-	                for(int l=j+1;l<m[0].length;l++){
-	                    if(m[i][j]==1&&m[i][l]==1&&m[k][j]==1&&m[k][l]==1)
-	                    return true;
-	                }
-	            }
-	        }
-	    }
-	    return false;
-	}
+class Solution
+{
+    public String multiplyStrings(String s1,String s2)
+    {
+        //code here.
+         BigInteger num1 = new BigInteger(s1);
+        BigInteger num2 = new BigInteger(s2);
+        BigInteger res = num1.multiply(num2);
+       
+        return res.toString();
+    }
 }
+
