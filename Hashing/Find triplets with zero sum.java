@@ -1,47 +1,53 @@
 // { Driver Code Starts
-//Initial Template for Java
-import java.io.*;
-import java.util.*; 
-class GFG{
-    pu
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
+import java.util.*;
+class Triplets{
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+			int n=sc.nextInt();
+			int[] a=new int[n];
+			for(int i=0;i<n;i++){
+				a[i]=sc.nextInt();
+			}
+			Solution g=new Solution();
+			if(g.findTriplets(a,n))
+				System.out.println("1");
+			else
+				System.out.println("0");
+			
+		}
+	}
+}// } Driver Code Ends
+
+
+/*Complete the function below*/
+
+
+class Solution
+{
+    // arr[]: input array
+    // n: size of the array
+    //Function to find triplets with zero sum.
+	public boolean findTriplets(int a[] , int n)
+    {
         
-        while(t-- > 0){
-            int n = Integer.parseInt(read.readLine());
-            
-            String input_line[] = read.readLine().trim().split("\\s+");
-            long a[]= new long[n];
-            for(int i = 0; i < n; i++)
-                a[i] = Long.parseLong(input_line[i]);
-
-            Solution ob = new Solution();
-            ob.prank(a, n); 
-
-            for (int i=0;i<n;i++) 
-                System.out.print(a[i]+" "); 
-            System.out.println();
+        
+        
+        Arrays.sort(a);
+        for(int i =0 ; i< n;i++){
+            int l = i+1;
+            int h=n-1;
+            while(l<h){
+                if(a[l]+a[h]==(-a[i]))
+                return true ;
+                if(a[l]+a[h]>(-a[i]))
+                h--;
+                if(a[l]+a[h]<(-a[i]))
+                l++;
+                }
         }
-    } 
-} // } Driver Code Ends
-
-
-//User function Template for Java
-class Solution 
-{ 
-    void prank(long[] a, int n)  
-    { 
- long[] b=new long[n];
-       for(int i=0;i<n;i++)
-       {
-           long temp=a[i];
-           b[i]= a[(int)temp];
-          }
-       for(int i=0;i<n;i++)
-       {
-           a[i]=b[i];
-       }
-      
-   }
-} 
+        return false;
+    }
+}
 
