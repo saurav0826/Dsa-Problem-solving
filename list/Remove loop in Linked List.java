@@ -1,47 +1,126 @@
 // { Driver Code Starts
-//Initial Template for Java
+// driver code
+
+import java.util.*;
 import java.io.*;
-import java.util.*; 
-class GFG{
-    public static void main(String args[]) throws IOException { 
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
-        
-        while(t-- > 0){
-            int n = Integer.parseInt(read.readLine());
-            
-            String input_line[] = read.readLine().trim().split("\\s+");
-            long a[]= new long[n];
-            for(int i = 0; i < n; i++)
-                a[i] = Long.parseLong(input_line[i]);
+import java.lang.*;
 
-            Solution ob = new Solution();
-            ob.prank(a, n); 
+class Node
+{
+    int data;
+    Node next;
+}
 
-            for (int i=0;i<n;i++) 
-                System.out.print(a[i]+" "); 
-            System.out.println();
+class GFG
+{
+    public static Node newNode(int data){
+        Node temp = new Node();
+        temp.data = data;
+        temp.next = null;
+        return temp;
+    }
+    
+    public static void makeLoop(Node head, int x){
+        if (x == 0)
+            return;
+        Node curr = head;
+        Node last = head;
+
+        int currentPosition = 1;
+        while (currentPosition < x)
+        {
+            curr = curr.next;
+            currentPosition++;
         }
-    } 
-} // } Driver Code Ends
+        
+        while (last.next != null)
+            last = last.next;
+        last.next = curr;
+    }
+    
+    public static boolean detectLoop(Node head){
+        Node hare = head.next;
+        Node tortoise = head;
+        while( hare != tortoise )
+        {
+            if(hare==null || hare.next==null) return false;
+            hare = hare.next.next;
+            tortoise = tortoise.next;
+        }
+        return true;
+    }
+    
+    public static int length(Node head){
+        int ret=0;
+        while(head!=null)
+        {
+            ret += 1;
+            head = head.next;
+        }
+        return ret;
+    }
+    
+    public static void main (String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t--> 0)
+        {
+            int n = sc.nextInt();
+            
+            int num = sc.nextInt();
+            Node head = newNode(num);
+            Node tail = head;
+            
+            for(int i=0; i<n-1; i++)
+            {
+                num = sc.nextInt();
+                tail.next = newNode(num);
+                tail = tail.next;
+            }
+            
+            int pos = sc.nextInt();
+            makeLoop(head, pos);
+            
+            Solution x = new Solution();
+            x.removeLoop(head);
+            
+            if( detectLoop(head) || length(head)!=n )
+                System.out.println("0");
+            else
+                System.out.println("1");
+        }
+    }
+}
+// } Driver Code Ends
 
 
-//User function Template for Java
-class Solution 
-{ 
-    void prank(long[] a, int n)  
-    { 
- long[] b=new long[n];
-       for(int i=0;i<n;i++)
-       {
-           long temp=a[i];
-           b[i]= a[(int)temp];
-          }
-       for(int i=0;i<n;i++)
-       {
-           a[i]=b[i];
-       }
-      
-   }
-} 
+/*
+class Node
+{
+    int data;
+    Node next;
+}
+*/
+
+class Solution
+{
+    //Function to remove a loop in the linked list.
+    public static void removeLoop(Node head){
+        // code here
+        // remove the loop without losing any nodes
+   Node temp=head;
+        HashSet<Node> s=new HashSet<Node>();
+        while(temp!=null){
+            if(s.contains(temp.next)){
+                temp.next=null;
+                break;
+            }
+            s.add(temp);
+            temp=temp.next;
+        }
+        return ;
+    }
+}
+ 
 
