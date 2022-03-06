@@ -1,47 +1,64 @@
 // { Driver Code Starts
 //Initial Template for Java
-import java.io.*;
+
+
 import java.util.*; 
-class GFG{
-    public static void main(String args[]) throws IOException { 
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
-        
-        while(t-- > 0){
-            int n = Integer.parseInt(read.readLine());
-            
-            String input_line[] = read.readLine().trim().split("\\s+");
-            long a[]= new long[n];
-            for(int i = 0; i < n; i++)
-                a[i] = Long.parseLong(input_line[i]);
+import java.io.*; 
+
+class GFG 
+{ 
+	public static void main (String[] args) { 
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t > 0){
+        	int n = sc.nextInt();
+            int array[] = new int[n];
+            for (int i = 0; i < n; ++i)
+            {
+                array[i] = sc.nextInt();
+            }
 
             Solution ob = new Solution();
-            ob.prank(a, n); 
 
-            for (int i=0;i<n;i++) 
-                System.out.print(a[i]+" "); 
+            int ans[] = ob.help_classmate(array,n);
+
+           	for (int i=0; i<n; i++) 
+                System.out.print(ans[i]+" "); 
             System.out.println();
+            t--;
         }
-    } 
-} // } Driver Code Ends
+	} 
+} 
+
+// } Driver Code Ends
 
 
 //User function Template for Java
-class Solution 
-{ 
-    void prank(long[] a, int n)  
-    { 
- long[] b=new long[n];
-       for(int i=0;i<n;i++)
-       {
-           long temp=a[i];
-           b[i]= a[(int)temp];
-          }
-       for(int i=0;i<n;i++)
-       {
-           a[i]=b[i];
-       }
-      
-   }
-} 
+
+class Solution {
+	public static int[] help_classmate(int arr[], int n) 
+	{ 
+	    // Your code goes here
+	    int [] ans = new int [n];
+	    for(int i = 0; i< n; i++){
+	        for(int j = i+1;j<n;j++){
+	            if(arr[j]<arr[i]){
+	                ans[i]=arr[j];
+	                break;
+	            }
+	            
+	        }
+	  
+	        
+	    }
+	    for(int i = 0; i< n; i++){
+	        if(ans[i]==0)
+	        ans[i]=-1;
+	    }
+	    
+	    return ans ;
+	    
+	} 
+}
+
 
