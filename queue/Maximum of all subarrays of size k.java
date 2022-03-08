@@ -1,59 +1,87 @@
 // { Driver Code Starts
-//Initial Template for Java
+//Initial template for JAVA
 
-import java.io.*;
 import java.util.*;
-import java.util.HashMap; 
-import java.util.HashSet; 
+import java.io.*;
+import java.lang.*;
 
-class GFG{
-	public static void main(String args[]) throws IOException { 
-		Scanner sc = new Scanner(System.in);
+class Main
+{
+    public static void main(String args[])
+    {
+        //taking input using class Scanner
+        Scanner sc = new Scanner(System.in);
+        
+        //taking total count of testcases
         int t = sc.nextInt();
+        
+        
+        
+        while(t-- > 0)
+        {
+            //taking total number of elements
+            int n = sc.nextInt();
+            
+            //taking size of subArrays 
+            int k = sc.nextInt();
+            
+            //Declaring and Intializing an array of size n
+            int arr[] = new int[n];
+            
+            //adding all the elements to the array 
+            for(int i = 0; i <n; i++)
+            {
+                arr[i] =sc.nextInt();
+            }
+            
+            //Calling the method max_of_subarrays of class solve
+            //and storing the result in an ArrayList
+            ArrayList <Integer> res = new Solution().max_of_subarrays(arr, n, k);
+            
+            //printing the elements of the ArrayList
+            for (int i = 0; i < res.size(); i++)
+                System.out.print (res.get (i) + " ");
+            System.out.println();
+        }
+    }
+}// } Driver Code Ends
 
-        while(t > 0){
-       		int rows=sc.nextInt();
-       		int columns=sc.nextInt();
-			
-			int matrix[][]=new int[rows][columns];
-          
-        	for(int i=0; i<rows;i++){            
-            	for(int j=0; j<columns;j++){
-                	matrix[i][j]=sc.nextInt();
-            	}
-         	}
 
-			Solution x = new Solution();
-			if (x.ValidCorner(matrix)) 
-				System.out.println("Yes"); 
-			else
-				System.out.println("No"); 
-			t--;
-		}
-	} 
-}
-	
+//User function template for JAVA
 
+class Solution
+{
+    //Function to find maximum of each subarray of size k.
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
+    {
+        // Your code here
+        ArrayList <Integer> ans = new ArrayList <Integer>();
+       
+       Deque<Integer> Qi = new LinkedList<Integer>();
+        for (int i = 0; i < k; ++i) 
+        {
+            while (!Qi.isEmpty() && arr[i] >= arr[Qi.peekLast()])
+              
+                Qi.removeLast(); 
+               
+                Qi.addLast(i);
+        }
+        for (int i=k; i < n; i++) 
+        {
+        
+            ans.add(arr[Qi.peek()]);
 
-// } Driver Code Ends
+            while ((!Qi.isEmpty()) && Qi.peek() <=  i - k)
+                Qi.removeFirst();
 
+            while ((!Qi.isEmpty()) && arr[i] >=  arr[Qi.peekLast()])
+                Qi.removeLast();
 
-//User function Template for Java
+        
+            Qi.addLast(i);
+        }
 
-public class Solution { 
-	static boolean ValidCorner(int m[][]) 
-	{ 
-	    // Your code goes here
-	    for(int i = 0 ; i< m.length ;i ++){
-	        for(int j = 0; j<m[0].length;j++){
-	            for(int k = i+1;k<m.length;k++){
-	                for(int l=j+1;l<m[0].length;l++){
-	                    if(m[i][j]==1&&m[i][l]==1&&m[k][j]==1&&m[k][l]==1)
-	                    return true;
-	                }
-	            }
-	        }
-	    }
-	    return false;
-	}
+        ans.add(arr[Qi.peek()]);
+        return ans ;
+    }
 }
