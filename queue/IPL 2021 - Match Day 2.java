@@ -7,26 +7,12 @@ import java.util.HashMap;
 import java.util.HashSet; 
 
 class GFG{
-	public static void main(String args[]) throws IOException { 
-		Scanner sc = new Scanner(System.in);
+
         int t = sc.nextInt();
 
         while(t > 0){
        		int rows=sc.nextInt();
-       		int columns=sc.nextInt();
-			
-			int matrix[][]=new int[rows][columns];
-          
-        	for(int i=0; i<rows;i++){            
-            	for(int j=0; j<columns;j++){
-                	matrix[i][j]=sc.nextInt();
-            	}
-         	}
-
-			Solution x = new Solution();
-			if (x.ValidCorner(matrix)) 
-				System.out.println("Yes"); 
-			else
+   
 				System.out.println("No"); 
 			t--;
 		}
