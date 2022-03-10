@@ -1,58 +1,68 @@
 // { Driver Code Starts
-//Initial Template for Java
-
 import java.util.*;
-import java.lang.*;
-import java.io.*;
 
-class GFG {
-	public static void main(String[] args) throws IOException
+
+class First_Circular_tour
+{
+	public static void main(String args[])
 	{
-	        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int t =
-            Integer.parseInt(br.readLine().trim()); // Inputting the testcases
-        while(t-->0)
-        {
-            long n = Long.parseLong(br.readLine().trim());
-            long a[] = new long[(int)(n)];
-            // long getAnswer[] = new long[(int)(n)];
-            String inputLine[] = br.readLine().trim().split(" ");
-            for (int i = 0; i < n; i++) {
-                a[i] = Long.parseLong(inputLine[i]);
-            }
-            long k = Long.parseLong(br.readLine().trim());
-            
-            Compute obj = new Compute();
-            System.out.println(obj.kthDiff(a, n, k));
-            
-        }
+		Scanner sc = new Scanner(System.in);
+		int t =sc.nextInt();
+		while(t>0)
+		{
+			int n = sc.nextInt();
+			sc.nextLine();
+			String str = sc.nextLine();
+			String arr[] = str.split(" ");
+			int p[] = new int[n];
+			int d[] = new int[n];
+			int j=0;
+			int k=0;
+			for(int i=0; i<2*n; i++)
+			{
+				if(i%2 == 0)
+				{
+					p[j]= Integer.parseInt(arr[i]);
+					j++;
+				}
+				else
+				{
+					d[k] = Integer.parseInt(arr[i]);
+					k++;
+				}
+			}
+			
+			System.out.println(new Solution().tour(p,d));
+		t--;
+		}
 	}
-}
-
-// } Driver Code Ends
+}// } Driver Code Ends
 
 
-//User function Template for Java
+// In java function tour() takes two arguments array of petrol
+// and array of distance
 
-
-class Compute {
-    
-    public long kthDiff(long arr[], long n, long k)
+class Solution
+{
+    //Function to find starting point where the truck can start to get through
+    //the complete circle without exhausting its petrol in between.
+    int tour(int petrol[], int distance[])
     {
-          Arrays.sort(arr);
-        long l = 0;
-        long  h = arr[arr.length - 1]-arr[0];
-        while (l < h) {
-            long m = (l + h) / 2;
-            int  c = 0 , p =0 ;
-            for (int r = 0; r < arr.length; ++r) {
-                while (arr[r] - arr[p] > m) p++;
-                c += r - p;
-            }
-            if (c >= k) h = m;
-            else l = m + 1;
+int start = 0;
+    int reqd_fuel = 0;
+    int available_fuel = 0;
+    
+    for(int i=0;i<petrol.length;i++){
+        available_fuel += petrol[i] - distance[i];
+        if(available_fuel<0){
+            reqd_fuel+=available_fuel;
+            available_fuel = 0;
+            start = i+1;
         }
-        return l;
     }
+    
+    if(reqd_fuel + available_fuel >=0) return start;
+    return -1;
+
+        }
     }
