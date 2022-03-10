@@ -1,47 +1,57 @@
 // { Driver Code Starts
 //Initial Template for Java
+
 import java.io.*;
-import java.util.*; 
-class GFG{
-    public static void main(String args[]) throws IOException { 
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(read.readLine());
+import java.util.*;
+class GfG
+{
+    public static void main (String[] args)
+    {
         
-        while(t-- > 0){
-            int n = Integer.parseInt(read.readLine());
-            
-            String input_line[] = read.readLine().trim().split("\\s+");
-            long a[]= new long[n];
-            for(int i = 0; i < n; i++)
-                a[i] = Long.parseLong(input_line[i]);
-
-            Solution ob = new Solution();
-            ob.prank(a, n); 
-
-            for (int i=0;i<n;i++) 
-                System.out.print(a[i]+" "); 
-            System.out.println();
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            String s = sc.next ();
+    		System.out.println (new Sol().countRev (s));
         }
-    } 
-} // } Driver Code Ends
+        
+    }
+}
+// Contributed By: Pranay Bansal
+// } Driver Code Ends
 
 
 //User function Template for Java
-class Solution 
-{ 
-    void prank(long[] a, int n)  
-    { 
- long[] b=new long[n];
-       for(int i=0;i<n;i++)
-       {
-           long temp=a[i];
-           b[i]= a[(int)temp];
-          }
-       for(int i=0;i<n;i++)
-       {
-           a[i]=b[i];
-       }
-      
-   }
-} 
+
+class Sol
+{
+    int countRev (String s)
+    {
+        Stack<Character> st = new Stack<>();
+        for(int i = 0 ;i<s.length();i++){
+                if(st.isEmpty())
+                st.push(s.charAt(i));
+                else if((st.peek()=='{')&&(s.charAt(i)=='}'))
+                st.pop();
+                else
+                st.push(s.charAt(i));
+            }
+            int ans =0;
+            if((st.size()%2)==1)
+            return -1;
+            while(!st.empty()){
+                char t1=st.peek();
+                st.pop();
+                char t2=st.peek();
+                st.pop();
+                if(t1==t2)
+                ans+=1;
+                else
+                ans+=2;
+            }
+            return ans;
+        }
+    }
 
